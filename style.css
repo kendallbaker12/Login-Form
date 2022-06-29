@@ -1,0 +1,14 @@
+body #app h1 {
+    display: flex;
+    justify-content: center;
+}
+
+body #app #login {
+    display: flex;
+    justify-content: center;
+}
+
+body #app #registration {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="page == 'home'" id="login">
+            <h1>Login Form</h1>
+            <input placeholder="email" v-model="loginEmailInput">
+            <input type="password" placeholder="password" v-model="loginPasswordInput">
+            <button v-on:click="postSession()">Attempt login</button>
+        </div>
+        <div v-else-if="page == 'registration'" id="registration">
+            <h1>Registraition Form</h1>
+            <input placeholder="new email" v-model="newEmailInput">
+            <input type="password" placeholder="new password" v-model="newPasswordInput">
+            <input placeholder="full name" v-model="newFullNameInput">
+            <button v-on:click="postUser">Create New User</button>
+        </div>
+        <div v-else-if="page == 'first-page'" id="first-page">
+            {{message}}
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
