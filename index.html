@@ -1,32 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forum App</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id="app">
-        <div v-if="page == 'home'" id="login">
+    <div id="app" style="text-align: center;">
+        <!-- Login with existing account -->
+        <div v-if="page == 'login'">
             <h1>Login Form</h1>
-            <input placeholder="email" v-model="loginEmailInput">
-            <input type="password" placeholder="password" v-model="loginPasswordInput">
-            <button v-on:click="postSession()">Attempt login</button>
+            <input placeholder="email" v-model="loginEmailInput"><br>
+            <input type="password" placeholder="password" v-model="loginPasswordInput"><br>
+            <button v-on:click="postSession">Login</button>
+            <button v-on:click="setPage('register')">Register</button>
         </div>
-        <div v-else-if="page == 'registration'" id="registration">
-            <h1>Registraition Form</h1>
-            <input placeholder="new email" v-model="newEmailInput">
-            <input type="password" placeholder="new password" v-model="newPasswordInput">
-            <input placeholder="full name" v-model="newFullNameInput">
-            <button v-on:click="postUser">Create New User</button>
+
+        <!-- Creating a new account -->
+        <div v-else-if="page == 'register'">
+            <h1>Registration Form</h1>
+            <input placeholder="new email" v-model="newEmailInput"><br>
+            <input type="password" placeholder="new password" v-model="newPasswordInput"><br>
+            <input placeholder="full name" v-model="newFullnameInput"><br>
+            <button v-on:click="postUser">Register</button>
         </div>
-        <div v-else-if="page == 'first-page'" id="first-page">
-            {{message}}
+
+        <!-- Home page - displays all threads (high level, no comments) -->
+        <div v-else-if="page == 'home'">
+            <h1>Forum App - Enjoy your stay</h1>
+            <div v-for="thread in threads">
+                <h3>{{ thread.name }}</h3>
+                <p>{{ thread.description }} - {{ thread.user.fullname }}</p>
+                <button v-on:click="getSingleThread(thread._id)">Look at each thread</button>
+            </div>
         </div>
+
+        <!-- Thread page - displays a single thread, along with comments -->
+        <div v-else-if="page == 'thread'">
+            <h1>{{ currentThread.name }}</h1>
+            <h2>{{currentThread.description}}</h2>
+            <div v-for="post in currentThread.posts">
+                <p>
+                    {{ post.body }} -
+                    <i>{{ post.user.fullname }}</i>
+                </p>
+            </div>
+            <input placeholder="New Comment" v-model="commentBody">
+            <button v-on:click="postComment(currentThread._id)">Add a new comment.</button><br>
+            <button v-on:click="loadHomePage()">Go Back.</button>
+        </div>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="app.js"></script>
