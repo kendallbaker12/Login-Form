@@ -107,7 +107,7 @@ var app = new Vue({
                 password: this.newPasswordInput
             }
 
-            let response = await fetch(URL + "/user", {
+            let response = await fetch(URL + "/users", {
                 method: "POST",
                 body: JSON.stringify(newUser),
                 headers: {
