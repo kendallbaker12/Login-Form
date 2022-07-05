@@ -1,4 +1,4 @@
-const URL = "https://forum2022.codeschool.cloud";
+const URL = "http://localhost:8080";
 
 var app = new Vue({
     el: "#app",
